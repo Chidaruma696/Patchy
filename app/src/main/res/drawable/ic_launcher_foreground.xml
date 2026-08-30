@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:rotation="-35"
+        android:pivotX="54"
+        android:pivotY="54">
+        <!-- sombra dura, estilo manga -->
+        <path
+            android:fillColor="#1B150D"
+            android:pathData="M33,48 h48 a10,10 0 0 1 10,10 a10,10 0 0 1 -10,10 h-48 a10,10 0 0 1 -10,-10 a10,10 0 0 1 10,-10 z" />
+        <!-- borde de tinta -->
+        <path
+            android:fillColor="#1B150D"
+            android:pathData="M30,42 h48 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 h-48 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12 z" />
+        <!-- tira de papel -->
+        <path
+            android:fillColor="#FAF5EA"
+            android:pathData="M30,45 h48 a9,9 0 0 1 9,9 a9,9 0 0 1 -9,9 h-48 a9,9 0 0 1 -9,-9 a9,9 0 0 1 9,-9 z" />
+        <!-- almohadilla -->
+        <path
+            android:fillColor="#E7DEC9"
+            android:pathData="M45,45 h18 v18 h-18 z" />
+        <!-- agujeros -->
+        <path
+            android:fillColor="#1B150D"
+            android:pathData="M49.5,50 a1.6,1.6 0 1 0 3.2,0 a1.6,1.6 0 1 0 -3.2,0 z M55.3,50 a1.6,1.6 0 1 0 3.2,0 a1.6,1.6 0 1 0 -3.2,0 z M49.5,58 a1.6,1.6 0 1 0 3.2,0 a1.6,1.6 0 1 0 -3.2,0 z M55.3,58 a1.6,1.6 0 1 0 3.2,0 a1.6,1.6 0 1 0 -3.2,0 z" />
+    </group>
+</vector>
