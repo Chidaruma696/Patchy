@@ -49,6 +49,8 @@ import com.patchy.app.data.LadderStep
 import com.patchy.app.data.Profile
 import com.patchy.app.data.Schedule
 import com.patchy.app.data.Store
+import com.patchy.app.ui.komi.KomiButton
+import com.patchy.app.ui.komi.KomiButtonVariant
 import com.patchy.app.ui.komi.KomiCheckbox
 import com.patchy.app.ui.komi.KomiChip
 import com.patchy.app.ui.komi.KomiChipKind
@@ -402,6 +404,10 @@ fun ExerciseTable(caption: String, items: List<Exercise>) {
             Box(Modifier.fillMaxWidth().background(colors.onSurface).padding(horizontal = 12.dp, vertical = 9.dp)) {
                 KomiText(caption, role = KomiTextRole.Stamp, color = colors.surface)
             }
+            Box(Modifier.fillMaxWidth().background(colors.surfaceVariant).padding(horizontal = 12.dp, vertical = 6.dp)) {
+                KomiText("Toca una fila para ver fácil · igual · duro", role = KomiTextRole.Label, color = colors.onSurfaceVariant, fontSize = 10.5.sp, uppercase = true)
+            }
+            KomiHorizontalDivider()
             Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp)) {
                 KomiText("Ejercicio", Modifier.weight(1.6f), role = KomiTextRole.Label, color = colors.onSurfaceVariant, fontSize = 10.5.sp)
                 KomiText("Series", Modifier.weight(0.9f), role = KomiTextRole.Label, color = colors.onSurfaceVariant, fontSize = 10.5.sp)
@@ -416,11 +422,21 @@ fun ExerciseTable(caption: String, items: List<Exercise>) {
                         .background(if (isOpen) colors.surfaceVariant else Color.Transparent)
                         .clickable { open = if (isOpen) -1 else i }
                         .padding(horizontal = 12.dp, vertical = 9.dp),
-                    verticalAlignment = Alignment.Top,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    KomiText((if (isOpen) "− " else "+ ") + ex.name, Modifier.weight(1.6f).padding(end = 8.dp), role = KomiTextRole.Body, color = colors.onSurface, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                    Column(Modifier.weight(1.6f).padding(end = 8.dp)) {
+                        KomiText(ex.name, role = KomiTextRole.Body, color = colors.onSurface, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                    }
                     KomiText(ex.sets, Modifier.weight(0.9f).padding(end = 8.dp), role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
-                    KomiText(ex.note, Modifier.weight(1.2f), role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
+                    KomiText(ex.note, Modifier.weight(1.2f).padding(end = 8.dp), role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
+                    Box(
+                        Modifier.size(26.dp)
+                            .background(if (isOpen) colors.primary else colors.surface)
+                            .border(2.dp, colors.outline),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        KomiText(if (isOpen) "−" else "+", role = KomiTextRole.Stamp, color = if (isOpen) colors.onPrimary else colors.onSurface, fontSize = 15.sp)
+                    }
                 }
                 if (isOpen) {
                     Box(Modifier.fillMaxWidth().background(colors.surfaceVariant).padding(start = 12.dp, end = 12.dp, bottom = 12.dp)) {
@@ -429,30 +445,24 @@ fun ExerciseTable(caption: String, items: List<Exercise>) {
                 }
                 if (i < items.lastIndex) KomiHorizontalDivider()
             }
-            Box(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 7.dp)) {
-                KomiText("Toca un ejercicio → fácil · igual · duro", role = KomiTextRole.Mono, color = colors.onSurfaceVariant, fontSize = 10.5.sp)
-            }
         }
     }
 }
 
-/** Panel plegable con las alternativas del día (cardio y ligero). */
+/** Botón + panel con las alternativas del día (cardio y ligero). */
 @Composable
 fun DayAlternatives(easier: String, equal: String, harder: String) {
-    val colors = LocalPersonality.current.colors
     var open by rememberSaveable { mutableStateOf(false) }
-    KomiSurface(elevation = KomiSurfaceElevation.Flat, contentPadding = PaddingValues(0.dp)) {
-        Column {
-            Row(
-                Modifier.fillMaxWidth().clickable { open = !open }.padding(horizontal = 12.dp, vertical = 11.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                KomiText("Alternativas del día", Modifier.weight(1f), role = KomiTextRole.Stamp, color = colors.onSurface, fontSize = 14.sp)
-                KomiText(if (open) "−" else "+", role = KomiTextRole.Stamp, color = colors.primary, fontSize = 16.sp)
-            }
-            if (open) {
-                KomiHorizontalDivider()
-                Box(Modifier.fillMaxWidth().padding(12.dp)) { AltLines(easier, equal, harder) }
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        KomiButton(
+            onClick = { open = !open },
+            label = if (open) "Ocultar alternativas −" else "Alternativas del día · fácil / igual / duro +",
+            variant = if (open) KomiButtonVariant.Tonal else KomiButtonVariant.Primary,
+            fullWidth = true,
+        )
+        if (open) {
+            KomiSurface(elevation = KomiSurfaceElevation.Flat, contentPadding = PaddingValues(12.dp)) {
+                AltLines(easier, equal, harder)
             }
         }
     }

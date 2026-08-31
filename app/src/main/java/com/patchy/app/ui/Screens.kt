@@ -600,7 +600,7 @@ fun MasScreen() {
                     }
                 }
             }
-            KomiText("Patchy 1.1 · plan Fase 0", role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
+            KomiText("Patchy 1.2 · plan Fase 0", role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
         }
     }
 }
