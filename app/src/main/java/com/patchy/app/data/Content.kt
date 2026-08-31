@@ -59,6 +59,22 @@ object Content {
 
     const val STRENGTH_EVIDENCE = "Trabajar cada músculo 2 veces por semana supera a 1 con igual volumen (Schoenfeld 2016); con el volumen igualado la frecuencia deja de importar (2019). Principiantes crecen con 5–10 series semanales por músculo (Schoenfeld 2017); este plan está en ese rango. Press sin ayudante: sin collarines y con topes si el banco los tiene. Fondos: tope a 90° para no cargar la cápsula anterior del hombro. Tríceps ≈ 60–65 % de la masa del brazo (StatPearls). Contorno de brazo: +4–6 % en 8–12 semanas."
 
+    // ---------- Calentamiento ----------
+    const val WARMUP_INTRO = "El calentamiento no es opcional, pero tampoco son 20 minutos: aquí son **5**. Sube la temperatura, mueve las articulaciones que vas a usar y ensaya el primer movimiento sin peso. Con el cuerpo frío se rinde menos y los tejidos toleran peor la carga."
+
+    val warmup = listOf(
+        listOf("1 · Temperatura", "2–3 min de marcha rápida, escaleras o trote muy suave"),
+        listOf("2 · Articulaciones", "10 círculos por lado: hombros, caderas y muñecas"),
+        listOf("3 · Ensayo", "El primer ejercicio del día con la barra vacía × 10, fácil"),
+        listOf("4 · Aproximación", "Cuando ya cargues discos: 1 serie con la mitad del peso × 8 antes de las series de trabajo"),
+    )
+
+    const val WARMUP_STRETCH = "**El estiramiento estático largo va después, no antes.** Mantener un estiramiento más de 60 segundos por músculo justo antes de entrenar baja la fuerza (~7 % de media); menos de 30–45 segundos apenas afecta. Antes del entrenamiento: movimiento. Después, o en el sábado de movilidad: estira lo que quieras."
+
+    const val WARMUP_CARDIO = "En cardio el calentamiento ya está dentro del diseño: los primeros 3–5 minutos van más despacio de tu ritmo normal, y en las semanas de intervalos siempre se empieza caminando. Igual al final: los últimos 2–3 minutos, suave."
+
+    const val WARMUP_EVIDENCE = "Calentar mejora el rendimiento en la gran mayoría de protocolos estudiados y el calentamiento activo y dinámico supera al estiramiento estático (Fradkin 2010). Estirar estático ≥60 s por músculo justo antes reduce la fuerza ~7.5 % de media; <45 s apenas afecta (Kay & Blazevich 2012; Simic 2013, efecto pequeño pero consistente). La subida progresiva de carga se asocia con ~25 % menos lesiones por distensión (revisión 2025). La serie de aproximación es práctica estándar: ensaya el patrón sin acumular fatiga."
+
     // ---------- Escalera ----------
     const val LADDER_INTRO = "Una flexión en el suelo mueve el **64 % del peso corporal**. Es fuerza de verdad, no un mínimo básico. Cuanto más altas las manos, menos peso empujas. Cuando te salgan **3×12 cómodas** en un nivel, bajas al siguiente."
 
@@ -101,6 +117,7 @@ object Content {
         "**La carga pegada al cuerpo.** Cada centímetro que la separas multiplica la carga sobre las lumbares.",
         "**Aprieta el abdomen antes de levantar**, como si fueras a recibir un golpe. Eso es lo que protege la columna.",
         "**Nunca gires con la carga en las manos.** Levanta primero, después mueve los pies. Girar con la columna comprimida es el mecanismo principal de hernia discal.",
+        "**Nunca en frío.** Antes de una tanda de cargas pesadas, 15–20 sentadillas al aire o bisagras de cadera sin peso valen como calentamiento.",
     )
 
     const val RDL_NOTE = "El peso muerto rumano es literalmente el patrón de levantar una carga del suelo, hecho despacio y con peso controlable. Entrenarlo no añade riesgo: lo quita, porque practicas con 10 kg el movimiento que luego haces con 30."
@@ -235,6 +252,10 @@ object Content {
         Source("Fondos en banco, profundidad — FitCraft", "https://getfitcraft.com/exercises/bench-dips"),
         Source("Tríceps, anatomía — StatPearls", "https://www.ncbi.nlm.nih.gov/books/NBK536996/"),
         Source("Colgarse, progresión — Dead Hangs", "https://deadhangs.com/deadhang-progressions/"),
+        Source("Fradkin 2010 — calentamiento y rendimiento, metaanálisis", "https://www.researchgate.net/publication/40483585_Effects_of_Warming-up_on_Physical_Performance_A_Systematic_Review_With_Meta-analysis"),
+        Source("Kay & Blazevich 2012 — estiramiento estático y fuerza", "https://www.anatomytrains.com/wp-content/uploads/manual/acute_stretch.pdf"),
+        Source("Simic 2013 — estiramiento previo, revisión", "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1600-0838.2012.01444.x"),
+        Source("Calentamiento y prevención de lesiones — revisión 2025", "https://www.mdpi.com/2075-4663/14/5/187"),
         Source("Lesiones en programas de carrera — IJERPH 2023", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10487403/"),
         Source("Progresión de carrera para principiantes — Pheidi", "https://pheidi.training/articles/beginner-running-progression/"),
         Source("MET de la cuerda — Elite Jumps", "https://elitejumps.co/blogs/guides/jump-rope-vs-other-forms-of-cardio"),
