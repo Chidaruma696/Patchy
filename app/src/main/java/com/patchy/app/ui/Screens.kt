@@ -163,6 +163,7 @@ fun HoyScreen() {
                 Table("Progresión de fondo", listOf("Semanas", "Sesión"), Content.cardioTable, listOf(0.7f, 2f), mono = setOf(0), boldFirst = false)
                 Body(Content.WARMUP_CARDIO, muted = true)
                 Body("Estás en la semana " + plan.weekGlobal + ". No corras recién comido: 60–90 minutos después de una comida completa.", muted = true)
+                Body("¿Llueve? Escaleras, step-ups al banco o marcha en el sitio: mismo tiempo, mismo ritmo de conversación. La lista completa está en Plan → Cardio.", muted = true)
             }
             Kind.LIGHT -> section {
                 Note(Tone.CALM, "Sábado ligero", Content.LIGHT_DAY)
@@ -236,6 +237,7 @@ fun PlanScreen() {
                 Body(Content.CARDIO_INTRO)
                 Table("Progresión de fondo", listOf("Semanas", "Sesión"), Content.cardioTable, listOf(0.7f, 2f), mono = setOf(0), boldFirst = false)
                 Note(Tone.KEY, "Lo único que importa aquí", Content.CARDIO_KEY)
+                Note(Tone.CALM, "Si no puedes salir · lluvia, calor, lo que sea", *Content.cardioIndoor.toTypedArray())
                 Note(Tone.CALM, "Sábado ligero", Content.LIGHT_DAY)
                 Evidence(Content.CARDIO_EVIDENCE)
             }

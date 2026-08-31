@@ -109,6 +109,15 @@ object Content {
 
     const val LIGHT_DAY = "Caminar 20–30 minutos y 10 de movilidad. No es descanso, es la señal diaria que construye el hábito sin sumar fatiga. Cuenta igual que cualquier otra casilla."
 
+    val cardioIndoor = listOf(
+        "El modo da igual: lo que cuenta es el **tiempo en movimiento continuo a ritmo de conversación**. Cualquiera de estos sustituye la caminata, minuto por minuto:",
+        "**Escaleras**, subir y bajar despacio — el mejor sustituto si tu edificio tiene.",
+        "**Step-ups al banco**, alternando pierna a ritmo suave y con el banco firme contra una pared.",
+        "**Un video de «caminar en casa»** (walk at home) siguiéndolo a tu ritmo; los hay gratis y de la duración exacta.",
+        "**Marcha en el sitio** viendo una serie. Aburrido, pero cuenta igual.",
+        "En semanas de intervalos: el tramo de «trote» es subir el ritmo (escalón más rápido, rodillas más altas) y el de «caminar» es bajarlo. Lo único que no vale es el sofá. Y la cuerda sigue sin ser el plan B: es intensidad de correr.",
+    )
+
     // ---------- Cargas fuera del gimnasio ----------
     const val LOADS_INTRO = "Si tu trabajo o tu vida incluyen levantar peso —cajas, bultos, muebles—, ese es el momento de más riesgo: carga pesada, sin calentar y con prisa. Una hernia para meses. El máximo que la NIOSH considera seguro con las dos manos **en condiciones ideales es 23 kg**; muchas cargas cotidianas lo superan, así que si te cuestan no es debilidad."
 
