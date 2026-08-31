@@ -136,11 +136,9 @@ fun HoyScreen() {
                     Body("Estirar en serio va después, no antes: más de 60 s por músculo antes de entrenar baja la fuerza.", muted = true)
                 }
                 section {
-                    val rows = if (plan.letter == 'A') Content.dayA else Content.dayB
-                    Table(
+                    ExerciseTable(
                         caption = if (plan.letter == 'A') "Día A · Empuje y tirón" else "Día B · Pierna y core",
-                        headers = listOf("Ejercicio", "Series", "Nota"),
-                        rows = rows, weights = listOf(1.6f, 0.9f, 1.2f), mono = setOf(1, 2),
+                        items = if (plan.letter == 'A') Content.dayA else Content.dayB,
                     )
                     Body("Descansa 90 segundos entre series. Barra vacía las dos primeras sesiones de cada ejercicio nuevo.", muted = true)
                     Note(Tone.KEY, "La regla que lo decide todo", Content.DOUBLE_PROGRESSION)
@@ -160,13 +158,14 @@ fun HoyScreen() {
             }
             Kind.CARDIO -> section {
                 Note(Tone.KEY, "Lo único que importa aquí", Content.CARDIO_KEY)
+                DayAlternatives(Content.CARDIO_ALT_EASIER, Content.CARDIO_ALT_EQUAL, Content.CARDIO_ALT_HARDER)
                 Table("Progresión de fondo", listOf("Semanas", "Sesión"), Content.cardioTable, listOf(0.7f, 2f), mono = setOf(0), boldFirst = false)
                 Body(Content.WARMUP_CARDIO, muted = true)
                 Body("Estás en la semana " + plan.weekGlobal + ". No corras recién comido: 60–90 minutos después de una comida completa.", muted = true)
-                Body("¿Llueve? Escaleras, step-ups al banco o marcha en el sitio: mismo tiempo, mismo ritmo de conversación. La lista completa está en Plan → Cardio.", muted = true)
             }
             Kind.LIGHT -> section {
                 Note(Tone.CALM, "Sábado ligero", Content.LIGHT_DAY)
+                DayAlternatives(Content.LIGHT_ALT_EASIER, Content.LIGHT_ALT_EQUAL, Content.LIGHT_ALT_HARDER)
                 Evidence(Content.HABIT_EVIDENCE)
             }
         }
@@ -224,8 +223,8 @@ fun PlanScreen() {
                 Table("Calentamiento · 5 min, siempre", emptyList(), Content.warmup, listOf(1f, 2.2f), mono = setOf(0))
                 Note(Tone.CALM, "Estirar, ¿cuándo?", Content.WARMUP_STRETCH)
                 Evidence(Content.WARMUP_EVIDENCE)
-                Table("Día A · Empuje y tirón", listOf("Ejercicio", "Series", "Nota"), Content.dayA, listOf(1.6f, 0.9f, 1.2f), mono = setOf(1, 2))
-                Table("Día B · Pierna y core", listOf("Ejercicio", "Series", "Nota"), Content.dayB, listOf(1.6f, 0.9f, 1.2f), mono = setOf(1, 2))
+                ExerciseTable("Día A · Empuje y tirón", Content.dayA)
+                ExerciseTable("Día B · Pierna y core", Content.dayB)
                 Note(Tone.KEY, "La regla que lo decide todo", Content.DOUBLE_PROGRESSION)
                 Note(Tone.WARN, "Seguridad · press de banca", *Content.benchSafety.toTypedArray())
                 Note(Tone.WARN, "Seguridad · fondos en el banco", Content.DIPS_SAFETY)

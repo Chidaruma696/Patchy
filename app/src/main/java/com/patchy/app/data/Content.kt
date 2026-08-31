@@ -3,6 +3,16 @@ package com.patchy.app.data
 data class Source(val name: String, val url: String)
 data class LadderStep(val step: String, val name: String, val percent: Int, val measured: Boolean)
 
+/** Un ejercicio con sus alternativas: bajar un escalón, cambiar de modo o subir uno. */
+data class Exercise(
+    val name: String,
+    val sets: String,
+    val note: String,
+    val easier: String,
+    val equal: String,
+    val harder: String,
+)
+
 /** Todo el contenido del plan, neutro: sirve para cualquier persona que empiece de cero. */
 object Content {
 
@@ -25,21 +35,84 @@ object Content {
 
     // ---------- Fuerza ----------
     val dayA = listOf(
-        listOf("Flexiones inclinadas", "3 × 8–10", "manos en el banco"),
-        listOf("Remo con barra", "3 × 10–12", "empieza con la barra"),
-        listOf("Press de banca", "2 × 10", "barra vacía"),
-        listOf("Colgarse de la barra", "3 × 15 s", "pies en una silla"),
-        listOf("Curl de bíceps", "2 × 12", "barra o mancuernas"),
-        listOf("Fondos en el banco", "2 × 8–10", "codo a 90°, no más"),
+        Exercise(
+            "Flexiones inclinadas", "3 × 8–10", "manos en el banco",
+            easier = "Manos más altas: mesa (~90 cm) o pared. Mismas series, misma técnica.",
+            equal = "Flexiones con rodillas en el suelo: cargan casi lo mismo que el asiento del banco.",
+            harder = "Manos más bajas: asiento del banco, luego un escalón. Baja de altura cuando salgan 3×12 cómodas.",
+        ),
+        Exercise(
+            "Remo con barra", "3 × 10–12", "empieza con la barra",
+            easier = "Remo con una mancuerna, la otra mano apoyada en el banco: 3 × 10 por lado.",
+            equal = "Remo invertido agarrado al borde de una mesa robusta, cuerpo recto.",
+            harder = "Un disco más por lado, o baja la barra en 3 segundos en cada repetición.",
+        ),
+        Exercise(
+            "Press de banca", "2 × 10", "barra vacía",
+            easier = "Press con las mancuernas en el banco: menos peso y más control.",
+            equal = "Press con las dos mancuernas de 5 kg, mismo recorrido.",
+            harder = "Un disco por lado cuando 2 × 10 salgan limpias. Sin collarines y siempre lejos del fallo.",
+        ),
+        Exercise(
+            "Colgarse de la barra", "3 × 15 s", "pies en una silla",
+            easier = "Apoya los pies de lleno y descarga los brazos: aguanta solo parte del peso.",
+            equal = "Mismo agarre con menos apoyo: puntas de los pies en vez de la planta.",
+            harder = "Levanta un pie, o los dos durante los últimos 5 segundos de cada serie.",
+        ),
+        Exercise(
+            "Curl de bíceps", "2 × 12", "barra o mancuernas",
+            easier = "Mancuernas de 5 kg alternando brazos.",
+            equal = "Curl con la barra vacía, codos pegados al cuerpo.",
+            harder = "Baja en 3 segundos cada repetición, o añade el disco más pequeño por lado.",
+        ),
+        Exercise(
+            "Fondos en el banco", "2 × 8–10", "codo a 90°, no más",
+            easier = "Pies más cerca del banco: cuanto más doblada la rodilla, menos peso en los brazos.",
+            equal = "Piernas dobladas a 90°, espalda pegada al borde.",
+            harder = "Piernas estiradas; después, talones sobre una silla enfrente.",
+        ),
     )
 
     val dayB = listOf(
-        listOf("Peso muerto rumano", "3 × 10", "cadera atrás"),
-        listOf("Sentadilla al banco", "3 × 10–12", "siéntate y levántate"),
-        listOf("Extensión y curl de pierna", "2 × 12", "rodillo del banco"),
-        listOf("Puente de glúteo", "2 × 12", "disco en la cadera"),
-        listOf("Plancha", "2 × 20 s", "rodillas si hace falta"),
+        Exercise(
+            "Peso muerto rumano", "3 × 10", "cadera atrás",
+            easier = "Bisagra de cadera sin peso: cadera atrás hasta tocar la pared, espalda recta.",
+            equal = "Con las dos mancuernas de 5 kg en vez de la barra.",
+            harder = "Disco por lado con doble progresión, o bajada de 3 segundos.",
+        ),
+        Exercise(
+            "Sentadilla al banco", "3 × 10–12", "siéntate y levántate",
+            easier = "A un asiento más alto: silla con un cojín. Menos recorrido, mismo patrón.",
+            equal = "Sentadilla goblet: una mancuerna abrazada al pecho.",
+            harder = "Sin tocar el banco (al aire); después, con la barra vacía en la espalda.",
+        ),
+        Exercise(
+            "Extensión y curl de pierna", "2 × 12", "rodillo del banco",
+            easier = "Menos discos en el rodillo, recorrido completo.",
+            equal = "A una pierna con la mitad del peso.",
+            harder = "Un disco más, o aguanta 2 segundos arriba en cada repetición.",
+        ),
+        Exercise(
+            "Puente de glúteo", "2 × 12", "disco en la cadera",
+            easier = "Sin disco: solo el cuerpo, apretando arriba 1 segundo.",
+            equal = "Disco sobre la cadera, sujeto con las manos.",
+            harder = "A una pierna, primero sin disco.",
+        ),
+        Exercise(
+            "Plancha", "2 × 20 s", "rodillas si hace falta",
+            easier = "Desde las rodillas, o con las manos en el banco.",
+            equal = "Antebrazos en el suelo, cuerpo recto de cabeza a talones.",
+            harder = "Suma 10 segundos por serie, o levanta un pie a ratos.",
+        ),
     )
+
+    // Alternativas del día completo, para cardio y ligero.
+    const val CARDIO_ALT_EASIER = "Recorta a 20 minutos, o repite la semana anterior de la progresión. Repetir no es retroceder."
+    const val CARDIO_ALT_EQUAL = "Bajo techo: escaleras, step-ups al banco, video de caminar en casa o marcha en el sitio. Mismo tiempo, mismo ritmo de conversación."
+    const val CARDIO_ALT_HARDER = "Añade 10 minutos al final o busca cuestas. No subas el ritmo: la zona fácil es el trabajo, no el descanso."
+    const val LIGHT_ALT_EASIER = "10 minutos alrededor de la cuadra y ya. La casilla es el hábito, no la distancia."
+    const val LIGHT_ALT_EQUAL = "Caminar 20–30 minutos y 10 de movilidad, dentro o fuera."
+    const val LIGHT_ALT_HARDER = "Paseo largo de 45–60 minutos. Sigue siendo ligero mientras puedas conversar."
 
     const val STRENGTH_INTRO = "Domingo A, martes B, jueves A. La siguiente semana empieza por B. La barra **vacía** las dos primeras sesiones de cada ejercicio nuevo: no es perder el tiempo, es aprender el movimiento. Descansa 90 segundos entre series."
 

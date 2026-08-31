@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.patchy.app.data.DayPlan
+import com.patchy.app.data.Exercise
 import com.patchy.app.data.Kind
 import com.patchy.app.data.LadderStep
 import com.patchy.app.data.Profile
@@ -358,6 +359,95 @@ fun WeekList(week: List<DayPlan>, today: LocalDate, showCheck: Boolean = true) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         week.forEach { d ->
             DayRow(d, isToday = d.date == today, done = Store.isDone(d.iso), onToggle = { Store.toggle(d.iso) }, showCheck = showCheck)
+        }
+    }
+}
+
+// ---------------------------------------------------------------- alternativas
+
+@Composable
+private fun AltLine(tag: String, fill: Color, text: String) {
+    val colors = LocalPersonality.current.colors
+    Row(verticalAlignment = Alignment.Top) {
+        Box(Modifier.width(86.dp)) {
+            KomiChip(label = tag, kind = KomiChipKind.Filter, small = true, tilt = false, fill = fill)
+        }
+        KomiText(rich(text), Modifier.weight(1f).padding(top = 2.dp), role = KomiTextRole.Body, color = colors.onSurface, fontSize = 13.5.sp)
+    }
+}
+
+@Composable
+fun AltLines(easier: String, equal: String, harder: String) {
+    val colors = LocalPersonality.current.colors
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        AltLine("Fácil", colors.secondary, easier)
+        AltLine("Igual", colors.gold, equal)
+        AltLine("Duro", colors.primary, harder)
+    }
+}
+
+/** Tabla de ejercicios: cada fila se toca y despliega sus alternativas en tres niveles. */
+@Composable
+fun ExerciseTable(caption: String, items: List<Exercise>) {
+    val colors = LocalPersonality.current.colors
+    var open by androidx.compose.runtime.remember { androidx.compose.runtime.mutableIntStateOf(-1) }
+    KomiSurface(elevation = KomiSurfaceElevation.Card, contentPadding = PaddingValues(0.dp)) {
+        Column {
+            Box(Modifier.fillMaxWidth().background(colors.onSurface).padding(horizontal = 12.dp, vertical = 9.dp)) {
+                KomiText(caption, role = KomiTextRole.Stamp, color = colors.surface)
+            }
+            Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp)) {
+                KomiText("Ejercicio", Modifier.weight(1.6f), role = KomiTextRole.Label, color = colors.onSurfaceVariant, fontSize = 10.5.sp)
+                KomiText("Series", Modifier.weight(0.9f), role = KomiTextRole.Label, color = colors.onSurfaceVariant, fontSize = 10.5.sp)
+                KomiText("Nota", Modifier.weight(1.2f), role = KomiTextRole.Label, color = colors.onSurfaceVariant, fontSize = 10.5.sp)
+            }
+            KomiHorizontalDivider(color = colors.outline)
+            items.forEachIndexed { i, ex ->
+                val isOpen = open == i
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .background(if (isOpen) colors.surfaceVariant else Color.Transparent)
+                        .clickable { open = if (isOpen) -1 else i }
+                        .padding(horizontal = 12.dp, vertical = 9.dp),
+                    verticalAlignment = Alignment.Top,
+                ) {
+                    KomiText((if (isOpen) "− " else "+ ") + ex.name, Modifier.weight(1.6f).padding(end = 8.dp), role = KomiTextRole.Body, color = colors.onSurface, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                    KomiText(ex.sets, Modifier.weight(0.9f).padding(end = 8.dp), role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
+                    KomiText(ex.note, Modifier.weight(1.2f), role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
+                }
+                if (isOpen) {
+                    Box(Modifier.fillMaxWidth().background(colors.surfaceVariant).padding(start = 12.dp, end = 12.dp, bottom = 12.dp)) {
+                        AltLines(ex.easier, ex.equal, ex.harder)
+                    }
+                }
+                if (i < items.lastIndex) KomiHorizontalDivider()
+            }
+            Box(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 7.dp)) {
+                KomiText("Toca un ejercicio → fácil · igual · duro", role = KomiTextRole.Mono, color = colors.onSurfaceVariant, fontSize = 10.5.sp)
+            }
+        }
+    }
+}
+
+/** Panel plegable con las alternativas del día (cardio y ligero). */
+@Composable
+fun DayAlternatives(easier: String, equal: String, harder: String) {
+    val colors = LocalPersonality.current.colors
+    var open by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    KomiSurface(elevation = KomiSurfaceElevation.Flat, contentPadding = PaddingValues(0.dp)) {
+        Column {
+            Row(
+                Modifier.fillMaxWidth().clickable { open = !open }.padding(horizontal = 12.dp, vertical = 11.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                KomiText("Alternativas del día", Modifier.weight(1f), role = KomiTextRole.Stamp, color = colors.onSurface, fontSize = 14.sp)
+                KomiText(if (open) "−" else "+", role = KomiTextRole.Stamp, color = colors.primary, fontSize = 16.sp)
+            }
+            if (open) {
+                KomiHorizontalDivider()
+                Box(Modifier.fillMaxWidth().padding(12.dp)) { AltLines(easier, equal, harder) }
+            }
         }
     }
 }
