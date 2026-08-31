@@ -23,6 +23,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -390,7 +396,7 @@ fun AltLines(easier: String, equal: String, harder: String) {
 @Composable
 fun ExerciseTable(caption: String, items: List<Exercise>) {
     val colors = LocalPersonality.current.colors
-    var open by androidx.compose.runtime.remember { androidx.compose.runtime.mutableIntStateOf(-1) }
+    var open by remember { mutableIntStateOf(-1) }
     KomiSurface(elevation = KomiSurfaceElevation.Card, contentPadding = PaddingValues(0.dp)) {
         Column {
             Box(Modifier.fillMaxWidth().background(colors.onSurface).padding(horizontal = 12.dp, vertical = 9.dp)) {
@@ -434,7 +440,7 @@ fun ExerciseTable(caption: String, items: List<Exercise>) {
 @Composable
 fun DayAlternatives(easier: String, equal: String, harder: String) {
     val colors = LocalPersonality.current.colors
-    var open by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    var open by rememberSaveable { mutableStateOf(false) }
     KomiSurface(elevation = KomiSurfaceElevation.Flat, contentPadding = PaddingValues(0.dp)) {
         Column {
             Row(
