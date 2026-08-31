@@ -326,7 +326,6 @@ fun DayRow(d: DayPlan, isToday: Boolean, done: Boolean, onToggle: () -> Unit, sh
     val colors = LocalPersonality.current.colors
     val tags = buildList {
         if (d.grippers) add("+ grippers")
-        if (d.measure) add("cinta y foto")
         add(d.detail)
     }.joinToString(" · ")
     KomiSurface(

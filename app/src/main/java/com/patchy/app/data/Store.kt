@@ -2,6 +2,9 @@ package com.patchy.app.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.temporal.TemporalAdjusters
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -57,6 +60,12 @@ object Store {
         age = prefs.getString("age", "") ?: ""
         sex = prefs.getString("sex", "M") ?: "M"
         startIso = prefs.getString("startIso", "") ?: ""
+        if (startIso.isBlank()) {
+            // Se fija una sola vez, al primer arranque: el domingo de esta semana.
+            // Sin esto, la fecha de inicio se recalcularía cada día y se correría al futuro.
+            startIso = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY)).toString()
+            prefs.edit().putString("startIso", startIso).apply()
+        }
         themeId = prefs.getString("themeId", "patchouli") ?: "patchouli"
         themeMode = prefs.getString("themeMode", "system") ?: "system"
     }

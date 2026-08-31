@@ -15,7 +15,6 @@ data class DayPlan(
     val letter: Char? = null,
     val grippers: Boolean = false,
     val cardio: String = "",
-    val measure: Boolean = false,
     val weekGlobal: Int = 0,
     val cycle: Int = 0,
     val weekInCycle: Int = 0,
@@ -23,21 +22,21 @@ data class DayPlan(
     val iso: String get() = date.toString()
 
     val title: String get() = when (kind) {
-        Kind.PRESTART -> "Medida y foto de partida"
+        Kind.PRESTART -> "El plan aún no empieza"
         Kind.STRENGTH -> "Fuerza " + letter + (if (grippers) " + grippers" else "")
         Kind.CARDIO -> cardio
-        Kind.LIGHT -> if (measure) "Ligero · medir" else "Ligero"
+        Kind.LIGHT -> "Ligero"
     }
 
     val short: String get() = when (kind) {
-        Kind.PRESTART -> "Foto"
+        Kind.PRESTART -> "—"
         Kind.STRENGTH -> letter.toString()
         Kind.CARDIO -> if (weekGlobal <= 2) "Cam" else "Trote"
         Kind.LIGHT -> "Lig"
     }
 
     val detail: String get() = when (kind) {
-        Kind.PRESTART -> "Cintura a la altura del ombligo y una foto"
+        Kind.PRESTART -> "La fecha de inicio se cambia en Más → Perfil"
         Kind.STRENGTH -> if (letter == 'A') "Empuje y tirón · 20 min" else "Pierna y core · 20 min"
         Kind.CARDIO -> "Ritmo de conversación"
         Kind.LIGHT -> "Caminar 20–30 min + movilidad 10"
@@ -64,7 +63,7 @@ object Schedule {
         get() {
             val iso = Store.startIso
             if (iso.isNotBlank()) runCatching { LocalDate.parse(iso) }.getOrNull()?.let { return it }
-            return nextSunday(today())
+            return previousSunday(today())
         }
 
     fun cardioFor(weekGlobal: Int): String = when {
@@ -94,7 +93,6 @@ object Schedule {
             )
             6 -> DayPlan(
                 date, Kind.LIGHT,
-                measure = weekInCycle == 4,
                 weekGlobal = weekGlobal, cycle = cycle, weekInCycle = weekInCycle,
             )
             else -> DayPlan(

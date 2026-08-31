@@ -204,14 +204,12 @@ object Content {
         "Semana par" to "B · A · B",
         "Grippers" to "domingo y jueves, al terminar",
         "Cardio" to "sem 1–2 caminar 30–40 min · sem 3–4 trote 1 / caminar 2 × 8",
-        "Sábado" to "ligero: caminar 20–30 + movilidad 10 · el último de cada ciclo, cinta y foto",
+        "Sábado" to "ligero: caminar 20–30 + movilidad 10",
     )
 
     const val CALENDAR_INTRO = "De domingo a domingo, **sin día cero**. Fuerza domingo, martes y jueves; cardio lunes, miércoles y viernes; el sábado es **ligero**: caminar 20–30 min y 10 de movilidad. Los grippers van **después** de la fuerza del domingo y del jueves: así tienen siempre 48 horas o más antes del siguiente remo."
 
     const val CALENDAR_MISSED = "Si una semana falla un día, no lo recuperes: sigue el calendario como si nada. La alternancia A/B se mantiene por posición en la semana, no por lo que hiciste la última vez. Una sesión movida de día no es una sesión perdida; una saltada sí."
-
-    const val BASELINE = "Antes de empezar: **cintura a la altura del ombligo y una foto**, misma luz y mismo sitio que usarás el último sábado del ciclo. Sin punto de partida no hay comparación."
 
     const val DOMS = "Las agujetas empiezan a las 12–24 h, pegan más fuerte entre las 24 y las 72, y se van en 5–7 días. Es normal, no es lesión. Y la segunda vez que hagas la misma sesión dolerán un 60–80 % menos: el cuerpo aprende rápido."
 

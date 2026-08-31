@@ -109,26 +109,26 @@ fun HoyScreen() {
                     (if (plan.weekGlobal % 2 == 1) "impar · A B A" else "par · B A B")
             )
             Display(plan.title)
-            KomiButton(
-                onClick = { Store.toggle(plan.iso) },
-                label = if (done) "Completado ✓  ·  toca para deshacer" else if (isToday) "Marcar como completado" else "Marcar este día como hecho",
-                size = if (isToday) KomiButtonSize.Lg else KomiButtonSize.Md,
-                variant = if (isToday || done) KomiButtonVariant.Primary else KomiButtonVariant.Tonal,
-                emphasized = isToday && !done,
-                fullWidth = true,
-                leadingIcon = if (done) Icons.Filled.Check else null,
-                container = if (done) status.ready else Color.Unspecified,
-            )
-            KomiText((if (isToday) "Mañana · " else "Siguiente · ") + next.title, role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
+            if (plan.kind != Kind.PRESTART) {
+                KomiButton(
+                    onClick = { Store.toggle(plan.iso) },
+                    label = if (done) "Completado ✓  ·  toca para deshacer" else if (isToday) "Marcar como completado" else "Marcar este día como hecho",
+                    size = if (isToday) KomiButtonSize.Lg else KomiButtonSize.Md,
+                    variant = if (isToday || done) KomiButtonVariant.Primary else KomiButtonVariant.Tonal,
+                    emphasized = isToday && !done,
+                    fullWidth = true,
+                    leadingIcon = if (done) Icons.Filled.Check else null,
+                    container = if (done) status.ready else Color.Unspecified,
+                )
+                KomiText((if (isToday) "Mañana · " else "Siguiente · ") + next.title, role = KomiTextRole.Mono, color = colors.onSurfaceVariant)
+            }
         }
 
         if (!Profile.complete) section { Note(Tone.KEY, "Perfil", Content.PROFILE_HINT) }
 
         when (plan.kind) {
             Kind.PRESTART -> section {
-                Note(Tone.KEY, "Hoy", Content.BASELINE)
-                Body("Guarda la cintura en Registro → Medidas. La foto, en tu galería con la fecha en el nombre. La fecha de inicio se cambia en Más → Perfil.")
-                Note(Tone.PLAIN, "Lo que viene", "Domingo: Fuerza A + grippers. Lunes: caminar 30–40 min. Y así de domingo a domingo, sin día cero.")
+                Note(Tone.PLAIN, "Todavía no empieza", "El día 1 es el " + Schedule.long(Schedule.start) + ". Si ya estás entrenando esta semana, ve a Más → Perfil y elige «Domingo pasado»: el calendario se acomoda y puedes marcar los días hechos.")
             }
             Kind.STRENGTH -> {
                 section {
@@ -166,7 +166,6 @@ fun HoyScreen() {
             }
             Kind.LIGHT -> section {
                 Note(Tone.CALM, "Sábado ligero", Content.LIGHT_DAY)
-                if (plan.measure) Note(Tone.KEY, "Último sábado del ciclo", "Cinta a la altura del ombligo y foto, misma luz y mismo sitio que la de partida. Guárdala en Registro → Medidas y compara con la anterior.")
                 Evidence(Content.HABIT_EVIDENCE)
             }
         }
@@ -416,7 +415,7 @@ fun RegistroScreen() {
                 }
                 section {
                     SectionHead(null, "Cintura")
-                    Body("A la altura del ombligo, el mismo día de cada mes. La de partida antes de empezar; la siguiente, el último sábado del ciclo.", muted = true)
+                    Body("Opcional y cuando tú quieras: la app no la pide. Con una vez al mes basta, a la altura del ombligo, el mismo día.", muted = true)
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         KomiTextField(value = waist, onValueChange = { waist = it }, label = "cm", keyboardType = KeyboardType.Decimal, modifier = Modifier.weight(0.7f))
                         KomiTextField(value = note, onValueChange = { note = it }, label = "Nota", placeholder = "opcional", modifier = Modifier.weight(1.3f))
